@@ -3,11 +3,12 @@ import Image from 'next/image';
 import{
   MenuIcon,
   SearchIcon,
-  ShoppingBagIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 function Header() {
+  const { data: session } = useSession()
   return (
     <header>
         <div className='flex items-center bg-amazon_blue p1 flex-glow py-2'>
@@ -24,9 +25,11 @@ function Header() {
               <input className='p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none' type="text"/>
               <SearchIcon className="h-12 p-4"/>
             </div>
-            <div className='text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap'>
-              <div className='link'>
-                <p>Hello Valeria Larrea</p>
+            <div onClick={signIn} className='text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap'>
+              <div onClick={!session ? signIn : signOut} className='link cursor-pointer'>
+                <p>
+                  {session ? `Hello ${session.user.name}` : "Sidn In"}
+                </p>
                 <p className='font-extrabold md:text-sm'>Account and Lists</p>
               </div>
               <div className='link'>
