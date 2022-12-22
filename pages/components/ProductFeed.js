@@ -2,7 +2,6 @@ import React from 'react'
 import Product from './Product';
 import datosJson from './datos.json'
 const products = datosJson["products"];
-console.log(products)
 
 function ProductFeed() {
 
