@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import datosJson from './datos.json'
 import Image from 'next/image';
-import { toast } from "react-toastify";
-import { useDispatch } from 'react-redux'
-import { addToBasket } from '../src/slices/basketSlices';
 import {  StarIcon } from '@heroicons/react/outline';
 const products = datosJson["products"];
 const MAX_RATING=5;

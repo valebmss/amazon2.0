@@ -7,13 +7,9 @@ import{
 } from "@heroicons/react/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { selectItems } from '../src/slices/basketSlices';
-
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
-  /*const items = useSelector( selectItems );*/
   return (
     <header>
         <div className='flex items-center bg-amazon_blue p1 flex-glow py-2'>
@@ -23,7 +19,6 @@ function Header() {
                 src="https://links.papareact.com/f90"
                 width={120}
                 height={30}
-                object-fit="contain"
                 className='cursor-pointer'/>
             </div>
 
