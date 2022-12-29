@@ -2,28 +2,22 @@ import React, { useState } from 'react'
 import datosJson from './datos.json'
 import Image from 'next/image';
 import {  StarIcon } from '@heroicons/react/outline';
+import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import { addToBasket } from '../src/slices/basketSlice';
 const products = datosJson["products"];
 const MAX_RATING=5;
 const MIN_RATING=1;
+
+
 function Product({id, title, price, description, category, imagen}) {
- /* const incrementCounter = useCallback(
-    () => dispatch({ type: 'increment-counter' }),
-    [dispatch]
-  );*/
+  const dispatch = useDispatch();
   const [rating] = useState(
     Math.floor(Math.random()*(MAX_RATING- MIN_RATING +1)) + MIN_RATING
   );
 
   const[hasPrime]= useState(Math.random()<0.5);
-  const addIteamToBasket = () =>{
-    const product = {
-      id, 
-      title, 
-      price, 
-      description, 
-      category, 
-      imagen
-    };
+  
     
     function addItemToBasket() {
       const product = {
@@ -32,13 +26,13 @@ function Product({id, title, price, description, category, imagen}) {
           price,
           description,
           category,
-          image,
+          imagen,
           rating,
           hasPrime,
       };
 
       // Sending the product via an action to the redux store (= basket "slice")
-      dispatch(addToBasket(product));
+      dispatch(addToBasket(product))
 
       toast.success(
           <>
@@ -60,7 +54,7 @@ function Product({id, title, price, description, category, imagen}) {
       );
   }
 
-  };
+
   return (
    <div className='relative flex flex-col m-5 bg-white z-30 p-10'> 
         <p className='absolute top-2 right-2 text-xs italy text-gray-400'>{category}</p>
@@ -69,9 +63,9 @@ function Product({id, title, price, description, category, imagen}) {
         <div className='flex'>
         {Array(rating)
         .fill()
-        .map(() =>(
+        .map((_, i) =>(
 
-          <StarIcon className='h-5 text-yellow-500'/>
+          <StarIcon key={i} className='h-5 text-yellow-500'/>
 
         ))}
         </div>
@@ -88,7 +82,7 @@ function Product({id, title, price, description, category, imagen}) {
           </div>
         )}
 
-        <button className='mt-auto button'>Add to Basket</button>
+        <button onClick={addItemToBasket} className='mt-auto button'>Add to Basket</button>
         
     </div>
   )
